@@ -1,0 +1,165 @@
+#include <iostream>
+#include <vector>
+#include <allegro5/allegro_primitives.h>
+	using namespace std;
+class stars {
+private:
+	int Xpos;
+	int Ypos;
+	int blue;
+	int red;
+	int green;
+	int size;
+public:
+	void repos();
+	void draw();
+	void movment();
+	void starscloud();
+	stars(); //constructor
+};
+class stars1 {
+private:
+	int Xpos1;
+	int Ypos1;
+	int blue1;
+	int red1;
+	int green1;
+	int size1;
+public:
+	void repos1();
+	void draw1();
+	void movment1();
+	void starscloud1();
+	stars1();
+};
+int main() {
+	ALLEGRO_DISPLAY* nomnom;
+	srand(time(NULL));
+	al_init();
+	nomnom = al_create_display(640, 480);
+	al_init_primitives_addon();
+
+	vector<stars*>starscloud;
+	vector<stars*>::iterator iter3;
+
+	vector<stars1*>starscloud1;
+	vector<stars1*>::iterator iter2;
+
+
+
+	for (int T = 0; T < 500; T++) {
+		stars* newStar = new stars();
+		starscloud.push_back(newStar);
+		stars1* newStar1 = new stars1();
+		starscloud1.push_back(newStar1);
+	}
+	while (1)
+	{
+		//"timer" :movement stuff
+		for (iter2 = starscloud1.begin(); iter2 != starscloud1.end(); iter2++) {
+			(*iter2)->repos1();
+			(*iter2)->movment1();
+
+		}
+		for (iter3 = starscloud.begin(); iter3 != starscloud.end(); iter3++) {
+			(*iter3)->repos();
+			(*iter3)->movment();
+
+		}
+
+		//"render" section
+		al_clear_to_color(al_map_rgb(0, 0, 0));
+		for (iter3 = starscloud.begin(); iter3 != starscloud.end(); iter3++) {
+			(*iter3)->draw();
+		}
+		for (iter2 = starscloud1.begin(); iter2 != starscloud1.end(); iter2++) {
+			(*iter2)->draw1();
+		
+		}
+
+		al_flip_display();
+	}//end game loop
+
+	system("pause");
+
+	al_destroy_display(nomnom);
+	return 0;
+
+
+}
+
+stars::stars() {
+	Xpos = rand() % 640 + 1;
+	Ypos = rand() % 640 + 1;
+	red = rand() % 255 + 1;
+	green = rand() % 255 + 1;
+	blue = rand() % 255 + 1;
+	size = rand() % 2 + 1;
+
+}
+
+void stars::starscloud() {
+
+	Xpos = rand() % 640 + 1;
+	Ypos = rand() % 640 + 1;
+	red = rand() % 255 + 1;
+	green = rand() % 255 + 1;
+	blue = rand() % 255 + 1;
+	size = rand() % 2 + 1;
+}
+void stars::repos() {
+	if (Ypos > 640) {
+		Xpos = rand() % 640 + 1;
+		Ypos = 0;
+		red = rand() % 255 + 1;
+		green = rand() % 255 + 1;
+		blue = rand() % 2 + 1;
+		size = rand() % 2 + 1;
+
+	}
+}
+
+void stars::movment() {
+	Ypos += 1;
+}
+void stars::draw() {
+	al_draw_filled_circle(Xpos, Ypos, size, al_map_rgb(255, 255, 255));
+}
+//New Class
+stars1::stars1() {
+	Xpos1 = rand() % 640 + 1;
+	Ypos1 = rand() % 640 + 1;
+	red1 = rand() % 255 + 1;
+	green1 = rand() % 255 + 1;
+	blue1 = rand() % 255 + 1;
+	size1 = rand() % 2 + 1;
+
+}
+
+void stars1::starscloud1() {
+
+	Xpos1 = rand() % 640 + 1;
+	Ypos1 = rand() % 640 + 1;
+	red1 = rand() % 255 + 1;
+	green1 = rand() % 255 + 1;
+	blue1 = rand() % 255 + 1;
+	size1 = rand() % 25 + 1;
+}
+void stars1::repos1() {
+	if (Ypos1 > 640) {
+		Xpos1 = rand() % 640 + 1;
+		Ypos1 = 0;
+		red1 = rand() % 255 + 1;
+		green1 = rand() % 255 + 1;
+		blue1 = rand() % 2 + 1;
+		size1 = rand() % 25+ 1;
+
+	}
+}
+
+void stars1::movment1() {
+	Ypos1 += 10;
+}
+void stars1::draw1() {
+	al_draw_filled_circle(Xpos1, Ypos1, 5, al_map_rgb(255, 255, 255));
+}
